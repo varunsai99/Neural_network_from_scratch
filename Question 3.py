@@ -67,8 +67,16 @@ class Neural_network:
             self.biases_gradients.append(np.zeros(layers[i+1]))
 
         self.activations.append(np.zeros(layers[-1]))
+
+        if optimizer == 'gradient_descent':
+            self.gradient_descent(x_train,y_train)
+        elif optimizer == 'sgd':
+            self.sgd(self.x_train,self.y_train)
+        elif optimizer == 'momentum':
+            self.momentum(self.x_train,self.y_train)
+        elif optimizer == 'nesterov':
+            self.nesterov(self.x_train,self.y_train)
         
-        self.gradient_descent(x_train,y_train)
 
 
     def sigmoid(self,activations):
@@ -154,6 +162,8 @@ class Neural_network:
                     res = np.asarray(res)
                     self.activation_gradients[i-1] = value * res
 
+
+
     def gradient_descent(self,x_train,y_train):
         for i in range(self.epochs):
             print('Epoch---',i+1,end=" ")
@@ -183,7 +193,9 @@ class Neural_network:
 
             acc=round(self.calculate_accuracy(x_train,y_train),3)
             val_acc=round(self.calculate_accuracy(self.x_cv,self.y_cv),3)
-            print('  loss = ',loss/x_train.shape[0],'  accuracy = ',acc,'   validation loss= ',val_loss/self.x_cv.shape[0],'  validation accuaracy= ',val_acc)
+            print('  loss = ',loss/x_train.shape[0],'  accuracy = ',acc,'   validation loss= '
+                  ,val_loss/self.x_cv.shape[0],'  validation accuaracy= ',val_acc)
+
 
     def sgd(self,x_train,y_train):
         for i in range(self.epochs):
@@ -210,7 +222,8 @@ class Neural_network:
 
             acc=round(self.calculate_accuracy(x_train,y_train),3)
             val_acc=round(self.calculate_accuracy(self.x_cv,self.y_cv),3)
-            print('  loss = ',loss/x_train.shape[0],'  accuracy = ',acc,'   validation loss= ',val_loss/self.x_cv.shape[0],'  validation accuaracy= ',val_acc)
+            print('  loss = ',loss/x_train.shape[0],'  accuracy = ',acc,'   validation loss= '
+                  ,val_loss/self.x_cv.shape[0],'  validation accuaracy= ',val_acc)
 
     def momentum(self,x_train,y_train):
         prev_gradients_w = [0*i for i in (self.weights_gradients)]
@@ -247,8 +260,55 @@ class Neural_network:
 
             acc=round(self.calculate_accuracy(x_train,y_train),3)
             val_acc=round(self.calculate_accuracy(self.x_cv,self.y_cv),3)
-            print('  loss = ',loss/x_train.shape[0],'  accuracy = ',acc,'   validation loss= ',val_loss/self.x_cv.shape[0],'  validation accuaracy= ',val_acc)
-  
+            print('  loss = ',loss/x_train.shape[0],'  accuracy = ',acc,'   validation loss= '
+                  ,val_loss/self.x_cv.shape[0],'  validation accuaracy= ',val_acc)
+
+
+    def nesterov(self,x_train,y_train):
+        prev_gradients_w = [0*i for i in (self.weights_gradients)]
+        prev_gradients_b = [0*i for i in (self.biases_gradients)]
+
+        for i in range(self.epochs):
+            print('Epoch---',i+1,end=" ")
+            loss = 0
+            val_loss=0
+
+            weights = [self.weights[j] -  self.decay_rate * prev_gradients_w[j] for j in range(len(self.weights))]
+            biases = [self.biases[j] -  self.decay_rate * prev_gradients_b[j] for j in range(len(self.biases))]
+
+            self.weights_gradients = [0*j for j in (self.weights_gradients)]
+            self.biases_gradients = [0*j for j in (self.biases_gradients)]
+            index = 1
+            for x,y in zip(x_train,y_train):
+                x = x.ravel()
+                loss += self.forward_propagation(x,y,weights,biases)
+                self.backward_propagation(x,y,weights,biases)
+                if index % self.batch == 0 or index == x_train.shape[0]:
+                    for j in range(len(self.weights)):
+                        prev_gradients_w[j] = self.decay_rate * prev_gradients_w[j] + self.learning_rate*self.weights_gradients[j] 
+                                           
+                        prev_gradients_b[j] = self.decay_rate * prev_gradients_b[j] + self.learning_rate*self.biases_gradients[j] 
+                                        
+                        self.weights[j] -= prev_gradients_w[j]
+                        self.biases[j] -= prev_gradients_b[j]
+
+                    weights = [self.weights[j] -  self.decay_rate * prev_gradients_w[j] for j in range(len(self.weights))]
+                    biases = [self.biases[j] -  self.decay_rate * prev_gradients_b[j] for j in range(len(self.biases))]
+
+                    self.weights_gradients = [0*j for j in (self.weights_gradients)]
+                    self.biases_gradients = [0*j for j in (self.biases_gradients)]
+                    
+                index += 1
+            for x,y in zip(self.x_cv,self.y_cv):
+               x=x.ravel()
+               val_loss+=self.forward_propagation(x,y,self.weights,self.biases)
+
+            acc=round(self.calculate_accuracy(x_train,y_train),3)
+            val_acc=round(self.calculate_accuracy(self.x_cv,self.y_cv),3)
+            print('  loss = ',loss/x_train.shape[0],'  accuracy = ',acc,'   validation loss= '
+                  ,val_loss/self.x_cv.shape[0],'  validation accuaracy= ',val_acc)
+
+
     def calculate_accuracy(self,X,Y):
         count = 0
         for i in range(len(X)):
