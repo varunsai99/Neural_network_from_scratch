@@ -7,6 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1kMZexQXxDTk8iUYHMe4MKyJ0nI9D9S2v
 """
 
+
 from keras.datasets import fashion_mnist
 from matplotlib import pyplot as plt
 import numpy as np
