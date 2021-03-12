@@ -80,6 +80,8 @@ class Neural_network:
             self.rmsprop(self.x_train,self.y_train)
         elif optimizer == 'adam':
             self.adam(self.x_train,self.y_train)
+        elif optimizer == 'nadam':
+            self.nadam(self.x_train,self.y_train)            
 
     def sigmoid(self,activations):
         res = []
@@ -408,6 +410,69 @@ class Neural_network:
                   ,val_loss/self.x_cv.shape[0],'  validation accuaracy= ',val_acc)
         
 
+    def nadam(self,x_train,y_train):
+        m_prev_gradients_w = [0*i for i in (self.weights_gradients)]
+        m_prev_gradients_b = [0*i for i in (self.biases_gradients)]
+        v_prev_gradients_w = [0*i for i in (self.weights_gradients)]
+        v_prev_gradients_b = [0*i for i in (self.biases_gradients)]
+
+        iter = 1
+
+        for i in range(self.epochs):
+            print('Epoch---',i+1,end=" ")
+            loss = 0
+            val_loss=0
+            eps = 1e-2
+            self.weights_gradients = [0*i for i in (self.weights_gradients)]
+            self.biases_gradients = [0*i for i in (self.biases_gradients)]
+
+            index = 1
+            for x,y in zip(x_train,y_train):
+                x = x.ravel()
+                loss += self.forward_propagation(x,y,self.weights,self.biases)
+                self.backward_propagation(x,y,self.weights,self.biases)
+                if index % self.batch == 0 or index == x_train.shape[0]:
+                    for j in range(len(self.weights)):
+
+                        m_w = (self.beta1 * m_prev_gradients_w[j] + (1-self.beta1) * self.weights_gradients[j])
+                        m_b = (self.beta1 * m_prev_gradients_b[j] + (1-self.beta1) * self.biases_gradients[j])
+                        v_w = (self.beta2 * v_prev_gradients_w[j] + (1-self.beta2) * np.square(self.weights_gradients[j]))
+                        v_b = (self.beta2 * v_prev_gradients_b[j] + (1-self.beta2) * np.square(self.biases_gradients[j]))
+
+                        m_hat_w = (m_w)/(1-(self.beta1)**iter) 
+                        m_hat_b = (m_b)/(1-(self.beta1)**iter) 
+
+                        v_hat_w = (v_w)/(1-(self.beta2)**iter) 
+                        v_hat_b = (v_b)/(1-(self.beta2)**iter)
+
+                        m_dash_w = self.beta1 * m_hat_w + (1-self.beta1) * self.weights_gradients[j]
+                        m_dash_b = self.beta1 * m_hat_b + (1-self.beta1) * self.biases_gradients[j]
+
+                        self.weights[j] -= self.learning_rate * (m_dash_w/(np.sqrt(v_hat_w + eps)))
+                        self.biases[j] -= self.learning_rate * (m_dash_b/(np.sqrt(v_hat_b + eps)))
+
+                        m_prev_gradients_w[j] = m_w
+                        m_prev_gradients_b[j] = m_b
+                        v_prev_gradients_w[j] = v_w
+                        v_prev_gradients_b[j] = v_b
+
+                    self.weights_gradients = [0*i for i in (self.weights_gradients)]
+                    self.biases_gradients = [0*i for i in (self.biases_gradients)]
+                    iter += 1
+
+                index +=1
+
+            for x,y in zip(self.x_cv,self.y_cv):
+               x=x.ravel()
+               val_loss+=self.forward_propagation(x,y,self.weights,self.biases)
+
+            acc=round(self.calculate_accuracy(x_train,y_train),3)
+            val_acc=round(self.calculate_accuracy(self.x_cv,self.y_cv),3)
+            print('  loss = ',loss/x_train.shape[0],'  accuracy = ',acc,'   validation loss= '
+                  ,val_loss/self.x_cv.shape[0],'  validation accuaracy= ',val_acc)
+
+
+    
     def calculate_accuracy(self,X,Y):
         count = 0
         for i in range(len(X)):
