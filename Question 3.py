@@ -21,9 +21,9 @@ x_test = x_test/255
 class Neural_network:
     np.random.seed(10)
     def __init__(self,x_train,y_train,input_dim,hidden_layers_size,hidden_layers,output_dim,batch_size=30,epochs=10,activation_func="relu"
-           ,learning_rate=6e-3 ,decay_rate=0.9,beta=0.9,beta1=0.9,beta2=0.99,optimizer="sgd",weight_init="random"):
+           ,learning_rate=6e-3 ,decay_rate=0.9,beta=0.9,beta1=0.9,beta2=0.99,optimizer="adam",weight_init="random"):
 
-        x_train,self.x_cv,y_train,self.y_cv = train_test_split(x_train, y_train, test_size=0.10, random_state=100,stratify=y_train)
+        self.x_train,self.x_cv,self.y_train,self.y_cv = train_test_split(x_train, y_train, test_size=0.10, random_state=100,stratify=y_train)
 
         np.random.seed(10)
         self.input_dim = input_dim
@@ -69,7 +69,7 @@ class Neural_network:
         self.activations.append(np.zeros(layers[-1]))
 
         if optimizer == 'gradient_descent':
-            self.gradient_descent(x_train,y_train)
+            self.gradient_descent(self.x_train,self.y_train)
         elif optimizer == 'sgd':
             self.sgd(self.x_train,self.y_train)
         elif optimizer == 'momentum':
