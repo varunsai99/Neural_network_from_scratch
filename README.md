@@ -13,10 +13,10 @@
     1. Here we implement optimizers like sgd(stocastic gradient descent), momentum, Nestrov Accelerated Gradient, RMS Prop, ADAM and NADAM.
     2. If we want to use RMS Prop as an optimizer then while creating the object for this class we will send optimizer="rmsprop" then RMS Prop optimizer will be used for computing. 
     3. Similarly 
-           1. If we want to use SGD optimizer then we use optimizer="sgd"
-           2. If we want to use Momentum optimizer then we use optimizer="momentum"
-           3. If we want to use NAG optimizer then we use optimizer="nestrov"
-           4. If we want to use Adam optimizer then we use optimizer="adam"
-           5. If we want to use NAdam optimizer then we use optimizer="nadam"
+      * If we want to use SGD optimizer then we use optimizer="sgd"
+      * If we want to use Momentum optimizer then we use optimizer="momentum"
+      * If we want to use NAG optimizer then we use optimizer="nestrov"
+      * If we want to use Adam optimizer then we use optimizer="adam"
+      * If we want to use NAdam optimizer then we use optimizer="nadam"
     4. Link for the .ipynb file:
     
