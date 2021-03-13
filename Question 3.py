@@ -220,6 +220,7 @@ class Neural_network:
                         self.biases[j] -= learning_rate * self.biases_gradients[j]
                     self.weights_gradients = [0*i for i in (self.weights_gradients)]
                     self.biases_gradients = [0*i for i in (self.biases_gradients)]
+                index +=1
 
                 index += 1
                 

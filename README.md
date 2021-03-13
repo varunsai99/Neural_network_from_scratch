@@ -18,5 +18,36 @@
       * If we want to use NAG optimizer then we use optimizer="nestrov"
       * If we want to use Adam optimizer then we use optimizer="adam"
       * If we want to use NAdam optimizer then we use optimizer="nadam"
-    4. Link for the .ipynb file:
+    4. Link for the .ipynb file: https://colab.research.google.com/drive/1x4xMaHQRW-tOxzyaa-p5BaMc2CV4oWNs?usp=sharing
     
+ 4. Question 4
+    1. First, we have splitted the train data in 9:1 ratio. 90% of the data is for training purpose and 10% of the data is for cross validation.
+    2. Then, we have set the sweep function of wandb by setting up different parameters in sweep_config.
+    3. By runnig the below code  we can start seeing the ouput within our wandb project.
+    ```
+    wandb.agent(sweep_id,train)
+    ```
+    5. Link for the .ipynb file: https://colab.research.google.com/drive/1NIEBtntraCGSMvUIWTFTA062pf1_JdJ5?usp=sharing 
+ 
+ 5. Question 7
+    1. We have used test data for plotting the confusion matrix.
+    2. We have used the model which was giving highest validation accuracy for plotting the confusion matrix.
+    3. The model is as follows:
+      - optimizer : nadam
+	  - activation : tanh
+	  - batch size : 64
+	  - hidden layers : 2 
+	  - learning rate : 0.002
+	  - weight decay : 0.1
+    5. By running the below code we can see plot the confusion matrix in our wandb project:
+    ```
+       wandb.init(project='fashion_mnist',entity='adi00510',reinit=True)
+       nn=Neural_network(x_train,y_train,784,64,2,10,64,7,'tanh',0.002,0.1,0.9,0.9,0.99,'nadam','xavier')
+       nn.calculate_accuracy(x_test,y_test,True)
+    ```
+    6. Link for .ipynb file: https://colab.research.google.com/drive/1h391HHmOpxQdw3kSvSBxkv3-pZNEeRx7?usp=sharing  
+6. Question 8
+    1. In this file we have implemented squared error loss as we are doing cross entropy loss in the previous questions.
+    2. Now we compared this squared error loss with cross entropy loss by running it on 4 configurations.
+    3. In most of the cases squared error loss will not perfom better as compared to cross entropy loss in terms of cross validation accuracy, but in some cases cross validation accuracy will be very close.
+    4. Link for .ipynb file: https://colab.research.google.com/drive/1rX7S5-qy1EROXNz8EdGx3BAp-59dqcum?usp=sharing
