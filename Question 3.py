@@ -221,6 +221,8 @@ class Neural_network:
                     self.weights_gradients = [0*i for i in (self.weights_gradients)]
                     self.biases_gradients = [0*i for i in (self.biases_gradients)]
 
+                index += 1
+                
             for x,y in zip(self.x_cv,self.y_cv):
                x=x.ravel()
                val_loss+=self.forward_propagation(x,y,self.weights,self.biases)
