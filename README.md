@@ -18,5 +18,5 @@
       * If we want to use NAG optimizer then we use optimizer="nestrov"
       * If we want to use Adam optimizer then we use optimizer="adam"
       * If we want to use NAdam optimizer then we use optimizer="nadam"
-    4. Link for the .ipynb file:
+    4. Link for the .ipynb file: https://colab.research.google.com/drive/1x4xMaHQRW-tOxzyaa-p5BaMc2CV4oWNs?usp=sharing
     
