@@ -46,3 +46,8 @@
        nn.calculate_accuracy(x_test,y_test,True)
     ```
     6. Link for .ipynb file: https://colab.research.google.com/drive/1h391HHmOpxQdw3kSvSBxkv3-pZNEeRx7?usp=sharing  
+6. Question 8
+    1. In this file we have implemented squared error loss as we are doing cross entropy loss in the previous questions.
+    2. Now we compared this squared error loss with cross entropy loss by running it on 4 configurations.
+    3. In most of the cases squared error loss will not perfom better as compared to cross entropy loss in terms of cross validation accuracy, but in some cases cross validation accuracy will be very close.
+    4. Link for .ipynb file: https://colab.research.google.com/drive/1rX7S5-qy1EROXNz8EdGx3BAp-59dqcum?usp=sharing
