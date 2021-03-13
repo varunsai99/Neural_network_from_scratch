@@ -51,3 +51,8 @@
     2. Now we compared this squared error loss with cross entropy loss by running it on 4 configurations.
     3. In most of the cases squared error loss will not perfom better as compared to cross entropy loss in terms of cross validation accuracy, but in some cases cross validation accuracy will be very close.
     4. Link for .ipynb file: https://colab.research.google.com/drive/1rX7S5-qy1EROXNz8EdGx3BAp-59dqcum?usp=sharing
+
+7. Question 10
+    1. In this file we loaded Mnist data from keras dataset and we used 3 best configruations by observing the previous configruations which we have used for fashion_mnist dataset.
+    2. By running this configruations we got test accuracy as following 96.98%, 95.32%, 92.79% respectively for these 3 best configruations
+    3. Link for .ipynb file:
