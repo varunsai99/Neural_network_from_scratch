@@ -22,4 +22,6 @@
     
  4. Question 4
     1. First, we have splitted the train data in 9:1 ratio. 90% of the data is for training purpose and 10% of the data is for cross validation.
-    2. Then, we have set
+    2. Then, we have set the sweep function of wandb by setting up different parameters in sweep_config.
+    3. By ruunig the code "wandb.agent(sweep_id,train)" we can start seeing the ouput within our wandb project.
+    4. Link for the .ipynb file: https://colab.research.google.com/drive/1NIEBtntraCGSMvUIWTFTA062pf1_JdJ5?usp=sharing 
