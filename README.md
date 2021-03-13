@@ -20,3 +20,6 @@
       * If we want to use NAdam optimizer then we use optimizer="nadam"
     4. Link for the .ipynb file: https://colab.research.google.com/drive/1x4xMaHQRW-tOxzyaa-p5BaMc2CV4oWNs?usp=sharing
     
+ 4. Question 4
+    1. First, we have splitted the train data in 9:1 ratio. 90% of the data is for training purpose and 10% of the data is for cross validation.
+    2. Then, we have set
