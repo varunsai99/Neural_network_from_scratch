@@ -19,6 +19,7 @@ x_train = x_train/255
 x_test = x_test/255
 
 
+
 class Neural_network:
     np.random.seed(10)
     def __init__(self,x_train,y_train,input_dim,hidden_layers_size,hidden_layers,output_dim,batch_size=30,epochs=10,activation_func="relu"
