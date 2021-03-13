@@ -55,4 +55,4 @@
 7. Question 10
     1. In this file we loaded Mnist data from keras dataset and we used 3 best configruations by observing the previous configruations which we have used for fashion_mnist dataset.
     2. By running this configruations we got test accuracy as following 96.98%, 95.32%, 92.79% respectively for these 3 best configruations
-    3. Link for .ipynb file:
+    3. Link for .ipynb file: https://colab.research.google.com/drive/1NzfEEud_brIY2Q4fivccHrkEPRsTyuDc?usp=sharing
