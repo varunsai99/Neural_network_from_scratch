@@ -23,5 +23,23 @@
  4. Question 4
     1. First, we have splitted the train data in 9:1 ratio. 90% of the data is for training purpose and 10% of the data is for cross validation.
     2. Then, we have set the sweep function of wandb by setting up different parameters in sweep_config.
-    3. By ruunig the code "wandb.agent(sweep_id,train)" we can start seeing the ouput within our wandb project.
+    3. By runnig the code "wandb.agent(sweep_id,train)" we can start seeing the ouput within our wandb project.
     4. Link for the .ipynb file: https://colab.research.google.com/drive/1NIEBtntraCGSMvUIWTFTA062pf1_JdJ5?usp=sharing 
+ 
+ 5. Question 7
+    1. We have used test data for plotting the confusion matrix.
+    2. We have used the model which was giving highest validation accuracy for plotting the confusion matrix.
+    3. The model is as follows:
+      - optimizer : nadam
+	  - activation : tanh
+	  - batch size : 64
+	  - hidden layers : 2 
+	  - learning rate : 0.002
+	  - weight decay : 0.1
+    5. By running the below code we can see plot the confusion matrix in our wandb project:
+    ```
+       wandb.init(project='fashion_mnist',entity='adi00510',reinit=True)
+       nn=Neural_network(x_train,y_train,784,64,2,10,64,7,'tanh',0.002,0.1,0.9,0.9,0.99,'nadam','xavier')
+       nn.calculate_accuracy(x_test,y_test,True)
+    ```
+    6. Link for .ipynb file: https://colab.research.google.com/drive/1h391HHmOpxQdw3kSvSBxkv3-pZNEeRx7?usp=sharing  
