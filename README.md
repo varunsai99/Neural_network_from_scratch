@@ -23,8 +23,11 @@
  4. Question 4
     1. First, we have splitted the train data in 9:1 ratio. 90% of the data is for training purpose and 10% of the data is for cross validation.
     2. Then, we have set the sweep function of wandb by setting up different parameters in sweep_config.
-    3. By runnig the code "wandb.agent(sweep_id,train)" we can start seeing the ouput within our wandb project.
-    4. Link for the .ipynb file: https://colab.research.google.com/drive/1NIEBtntraCGSMvUIWTFTA062pf1_JdJ5?usp=sharing 
+    3. By runnig the below code  we can start seeing the ouput within our wandb project.
+    ```
+    wandb.agent(sweep_id,train)
+    ```
+    5. Link for the .ipynb file: https://colab.research.google.com/drive/1NIEBtntraCGSMvUIWTFTA062pf1_JdJ5?usp=sharing 
  
  5. Question 7
     1. We have used test data for plotting the confusion matrix.
