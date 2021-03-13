@@ -1,3 +1,5 @@
+The wandb report link is: https://wandb.ai/adi00510/fashion_mnist/reports/-Assignment-1--Vmlldzo1MjA1ODY
+
 1. Question 1
     1. Just by running the code (in google colab), we can see the output of the code in wandb.
     2. Link for the .ipynb file: https://colab.research.google.com/drive/1CpE6keY5Tq9tkk8Sygkd01azFXKzbYrn?usp=sharing 
